@@ -1,0 +1,16 @@
+{
+    "name": "ta/mvc",
+    "authors": [
+        {
+            "name": "Ta Gr",
+            "email": "tatevikg1@gmail.com"
+        }
+    ],
+
+    "autoload":{
+        "psr-4":{
+            "app\\": "./"
+        }
+    },
+    "require": {}
+}

@@ -1,0 +1,3 @@
+RewriteEngine On
+
+RewriteRule ^autolink/.* autolink.php/?url=$0 [QSA,PT]
