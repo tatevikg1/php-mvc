@@ -33,7 +33,7 @@ class Router
 
         $path = $this->request->getPath();
 
-        $method = $this->request->getMethod();
+        $method = $this->request->method();
         // if there is a route with this method and path, it will return an object,
         // else null which will be set to false with the help of ??
         $callback = $this->routes[$method][$path] ?? false;
@@ -44,20 +44,27 @@ class Router
             $this->response->setStatusCode(404);
             return $this->renderView("_404");
         }
-
+        // if the $callback is a string(not a function) render the view with the name of that string
         if(is_string($callback))
         {
             return $this->renderView($callback);
         }
+        // if the $callback is an array make the first element of array an object.
+        // $this->render() in  controller works if it is an instance of class(object)
+        if(is_array($callback))
+        {
+            $callback[0] = new $callback[0]();
+        }
 
-        return call_user_func($callback);
+        // else call the $callback function, and pass the request so in controller I can use $request
+        return call_user_func($callback, $this->request);
 
     }
 
-    public function renderView($view)
+    public function renderView($view, $param = [])
     {
         $layoutContent = $this->layoutContent();
-        $viewContent = $this->renderOnlyView($view);
+        $viewContent = $this->renderOnlyView($view, $param);
 
         // find the string "{{content}}" in $layoutContent and replace it with $viewContent
         return str_replace('{{content}}', $viewContent, $layoutContent);
@@ -72,8 +79,14 @@ class Router
         return ob_get_clean();
     }
 
-    protected function renderOnlyView($view)
+    protected function renderOnlyView($view, $param = [])
     {
+        foreach ($param as $key => $value) {
+            // one $ returns the variables value the second makes variable with that namespace
+            // (the variable which is named as the keys is in parameters key value pares)
+            $$key = $value; //($data as in FormController)
+        }
+
         // include but dont show yet(creates an output buffer)
         ob_start();
         include_once __DIR__."/../views/$view.php";

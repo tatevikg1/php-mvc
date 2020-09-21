@@ -3,17 +3,23 @@
 namespace app\controllers;
 
 use app\core\Application;
+use app\core\Controller;
+use app\core\Request;
 
-
-class FormController
+// it extends Controller because the render function is there
+class FormController extends Controller
 {
     public function index()
     {
-        return Application::$app->router->renderView('form');
+        $param = ['data' => 'php-MVC'];
+        // return Application::$app->router->renderView('form', $param);
+        return $this->render('form', $param);
     }
 
-    public function store()
+    public function store(Request $request)
     {
+        $data = $request->data();
+        var_dump($data);
         return "hello form";
     }
 }
