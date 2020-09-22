@@ -12,5 +12,8 @@
             "app\\": "./"
         }
     },
-    "require": {}
+    "require": {
+        "vlucas/phpdotenv": "^5.2",
+        "robmorgan/phinx": "^0.12.4"
+    }
 }

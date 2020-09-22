@@ -10,12 +10,8 @@ use app\core\Application;
 
 $app = new Application();
 
-
+// homepage
 $app->router->get('/', 'content');
-
-$app->router->get('/form', [FormController::class, 'index']);
-$app->router->post('/post', [FormController::class, 'store']);
-
 // auth routes
 $app->router->get   ('/register',   [AuthController::class, 'register']);
 $app->router->post  ('/register',   [AuthController::class, 'register']);
@@ -26,4 +22,4 @@ $app->run();
 
 // MESSAGE TO MYSELF
 
-// Run the app from public folder where the index.php is(the program starts with this file)
+// Run the app from public folder where the index.php is(the program starts with index.php)

@@ -4,7 +4,7 @@ namespace app\models;
 
 use app\core\Model;
 
-class RegisterModel extends Model
+class User extends Model
 {
     public $firstname;
     public $lastname;
@@ -14,6 +14,11 @@ class RegisterModel extends Model
 
     public function register()
     {
+
+        $user = 'INSERT INTO users ( firstname,   lastname,  email,  password)
+                            VALUES($firstname,	$lastname, $email, $password)';
+
+                            var_dump($user);
         return 'user';
     }
 

@@ -5,12 +5,13 @@ namespace app\core;
 class Application
 {
 
-    public  $router;
+    public $router;
     public $request;
     public $response;
+    public $db;
     public static $app;
 
-    public function __construct()
+    public function __construct()//$config)
     {
         // make the app accesible in whole application
         self::$app = $this;
