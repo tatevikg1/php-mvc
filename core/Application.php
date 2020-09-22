@@ -2,20 +2,23 @@
 
 namespace app\core;
 
+use \PDO;
+
 class Application
 {
 
     public $router;
     public $request;
     public $response;
-    public $db;
+    public $PDO;
     public static $app;
 
-    public function __construct()//$config)
+    public function __construct()
     {
         // make the app accesible in whole application
         self::$app = $this;
 
+        $this->PDO = new PDO('sqlite:/home/ta/Documents/php/mvc/.sqlite3');
         $this->request = new Request();
         $this->response = new Response();
         $this->router = new Router($this->request, $this->response);

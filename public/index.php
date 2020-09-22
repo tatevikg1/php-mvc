@@ -3,10 +3,9 @@
 // the .. is to go one directory back as index in public directory not root
 require_once __DIR__.'/../vendor/autoload.php';
 
+use app\core\Application;
 use app\controllers\FormController;
 use app\controllers\AuthController;
-use app\core\Application;
-
 
 $app = new Application();
 

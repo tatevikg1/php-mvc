@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\core\Model;
+use app\core\Application;
 
 class User extends Model
 {
@@ -14,11 +15,13 @@ class User extends Model
 
     public function register()
     {
+        $sql = "INSERT INTO users (firstname, lastname, email, password)
+                VALUES ($this->firstname, $this->lastname, $this->email, $this->password)";
 
-        $user = 'INSERT INTO users ( firstname,   lastname,  email,  password)
-                            VALUES($firstname,	$lastname, $email, $password)';
+        Application::$app->PDO->query($sql);
+        $user = Application::$app->PDO->query("SELECT * FROM users");
 
-                            var_dump($user);
+        var_dump($user);
         return 'user';
     }
 
