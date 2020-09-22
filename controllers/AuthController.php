@@ -22,7 +22,7 @@ class AuthController extends Controller
             // if the request data was validated in User and the user was registrated
             if($registerModel->validate() && $registerModel->register())
             {
-                return 'success';
+                return 'from AuthController';
             }
 
         }

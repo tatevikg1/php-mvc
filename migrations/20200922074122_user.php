@@ -21,7 +21,7 @@ final class User extends AbstractMigration
         // create the table
         $table = $this->table('users');
         $table->addColumn('firstname', 'string')
-              ->addColumn('lastanem', 'string')
+              ->addColumn('lastname', 'string')
               ->addColumn('email', 'string')
               ->addColumn('password', 'string')
               ->addColumn('created', 'datetime')
