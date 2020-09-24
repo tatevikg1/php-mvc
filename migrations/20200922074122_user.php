@@ -24,7 +24,6 @@ final class User extends AbstractMigration
               ->addColumn('lastname', 'string')
               ->addColumn('email', 'string')
               ->addColumn('password', 'string')
-              ->addColumn('created', 'datetime')
               ->create();
     }
 }

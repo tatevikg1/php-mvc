@@ -4,6 +4,7 @@ namespace app\models;
 
 use app\core\Model;
 use app\core\Application;
+use app\core\Database;
 
 class User extends Model
 {
@@ -13,39 +14,32 @@ class User extends Model
     public $password;
     public $confirm;
 
+
     public function register()
     {
-        $statment = "INSERT INTO users (firstname, lastname, email, password)
-                VALUES (:firstname, :lastname, :email, :password)";
+        // hash the password before saving
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
 
+        // sqlite statement with  parameters
+        $statment = "INSERT INTO  users (firstname, lastname, email, password)
+                VALUES ('".$this->firstname."',
+                        '".$this->lastname."',
+                        '".$this->email."',
+                        '".$this->password."')";
+
+        // preparing to execute the sqlite statement
         $create = self::prepare($statment);
-        $create->execute(array(
-            ':firsnam'  => $this->firstname,
-            ':lastname' => $this->lastname,
-            ':email'    => $this->email,
-            ':password' => $this->password
-        ));
+        // executing the statement
+        $create->execute();
 
-
-
-        // $statment = "INSERT INTO users (firstname, lastname, email, password) VALUES (?, ?, ?, ?)";
-        //
-        // $create = self::prepare($statment)->execute([
-        //     $this->firstname,
-        //     $this->lastname,
-        //     $this->email,
-        //     $this->password
-        // ]);
-
-        if($create === false){
-            $msg = 'Error creating the user.';
-        }else{
-            $msg = "The new user is created";
+        // get all users to check if the user was created
+        $users = self::prepare("SELECT * FROM users");
+        $users->fetchAll();
+        if(count($users) > 0){
+            foreach ($users as $user) {
+                var_dump('hello');
+            }
         }
-
-        $getUsers = Application::$app->PDO->query("SELECT * FROM users")->fetchAll();
-
-        var_dump($create);
         return 'user';
     }
 

@@ -1,2 +1,4 @@
 vendor
 .env
+.sqlite3
+phinx.php

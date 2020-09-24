@@ -11,6 +11,7 @@ $app = new Application();
 
 // homepage
 $app->router->get('/', 'content');
+$app->router->get('/page1', 'page1');
 // auth routes
 $app->router->get   ('/register',   [AuthController::class, 'register']);
 $app->router->post  ('/register',   [AuthController::class, 'register']);
