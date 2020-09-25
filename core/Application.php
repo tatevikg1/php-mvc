@@ -19,6 +19,7 @@ class Application
         self::$app = $this;
 
         $this->PDO = new PDO('sqlite:/home/ta/Documents/php/mvc/.sqlite3');
+        $this->PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->request = new Request();
         $this->response = new Response();
         $this->router = new Router($this->request, $this->response);

@@ -1,6 +1,6 @@
 <h1>Login to your account</h1>
 
-<form method="post" action="/loginn">
+<form method="post" action="/login">
 
     <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>

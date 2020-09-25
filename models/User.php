@@ -4,7 +4,7 @@ namespace app\models;
 
 use app\core\Model;
 use app\core\Application;
-use app\core\Database;
+use app\core\DB;
 
 class User extends Model
 {
@@ -28,19 +28,20 @@ class User extends Model
                         '".$this->password."')";
 
         // preparing to execute the sqlite statement
-        $create = self::prepare($statment);
+        $create = DB::prepare($statment);
         // executing the statement
         $create->execute();
 
-        // get all users to check if the user was created
-        $users = self::prepare("SELECT * FROM users");
-        $users->fetchAll();
-        if(count($users) > 0){
-            foreach ($users as $user) {
-                var_dump('hello');
-            }
-        }
-        return 'user';
+        // get all users
+        // $users = DB::query("SELECT * FROM users;");
+        // while ($user = $users->fetch()) {
+        //     var_dump($user['firstname']);
+        // }
+
+        // get the newly created user id
+        $user = DB::lastInsertId();
+
+        return $user;
     }
 
     // this will return array
@@ -55,10 +56,6 @@ class User extends Model
         ];
     }
 
-    public static function prepare($sqlStatment)
-    {
-        return Application::$app->PDO->prepare($sqlStatment);
-    }
 
 
 }

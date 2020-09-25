@@ -13,6 +13,7 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $user = new User();
+
         if($request->method() === "post")
         {
             // load the request data to the model so it can be rerendered if there was an date_get_last_errors
@@ -22,11 +23,11 @@ class AuthController extends Controller
             // if the request data was validated in User and the user was registrated
             if($user->validate() && $user->register())
             {
-                return 'from AuthController';
+                return  "hello";//$this->render('login', ['model' => $user]);
             }
 
         }
-        // return Application::$app->router->renderView('regiser', $param);
+        // return Application::$app->router->renderView('register', $param);
         return $this->render('register', ['model' => $user]);
     }
 
@@ -36,7 +37,8 @@ class AuthController extends Controller
         {
             return $this->render('login');
         }
+        var_dump('hello from login post method');
 
-        return $this->render('/');
+        return $this->render('', 'index');
     }
 }

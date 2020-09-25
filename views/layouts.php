@@ -23,34 +23,29 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item mr-5">
+                        <li class="nav-item mr-3">
                             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item mr-5">
+                        <li class="nav-item mr-3">
                             <a class="nav-link" href="/page1">One more route</a>
                         </li>
-                        <li class="nav-item mr-5">
+                        <li class="nav-item mr-3">
                             <a class="nav-link" href="https://phptherightway.com/">PHP the right way</a>
                         </li>
-
-                        <li class="nav-item mr-5">
-                            <a class="nav-link" href="/someNonExestingRoute">Not found</a>
-                        </li>
-
                     </ul>
 
-                    <!-- <ul class="navbar-nav ml-auto">
-                      <li class="nav-item mr-5">
+                    <ul class="navbar-nav ml-auto">
+                      <li class="nav-item mr-3">
                         <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
                       </li>
-                      <li class="nav-item mr-5">
+                      <li class="nav-item mr-3">
                         <a class="nav-link" href="/register">Register</a>
                       </li>
-                      <li class="nav-item mr-5">
+                      <li class="nav-item mr-3">
                         <a class="nav-link" href="/logout">Logout</a>
                       </li>
 
-                    </ul> -->
+                    </ul>
                 </div>
             </div>
         </nav>
