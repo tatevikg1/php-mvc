@@ -10,5 +10,10 @@ class Response
         http_response_code($code);
     }
 
+    public function redirect($url)
+    {
+        // header is a php function to redirect to url
+        header('Location: '. $url);
+    }
 
 }

@@ -22,40 +22,41 @@ class User extends Model
 
         // sqlite statement with  parameters
         $statment = "INSERT INTO  users (firstname, lastname, email, password)
-                VALUES ('".$this->firstname."',
-                        '".$this->lastname."',
-                        '".$this->email."',
-                        '".$this->password."')";
+                VALUES (:firstname, :lastname, :email, :password)";
 
-        // preparing to execute the sqlite statement
-        $create = DB::prepare($statment);
+        $createUser = DB::prepare($statment);
+        // bind the values to the statment
+        $createUser->bindValue(":firstname", $this->firstname);
+        $createUser->bindValue(":lastname",  $this->lastname);
+        $createUser->bindValue(":email",     $this->email);
+        $createUser->bindValue(":password",  $this->password);
+
         // executing the statement
-        $create->execute();
+        $createUser->execute();
 
-        // get all users
+        // // get all users
         // $users = DB::query("SELECT * FROM users;");
         // while ($user = $users->fetch()) {
         //     var_dump($user['firstname']);
         // }
 
-        // get the newly created user id
-        $user = DB::lastInsertId();
+        // // get the newly created user id
+        // $user = DB::lastInsertId();
+        // var_dump($user);
 
-        return $user;
+        return true;
     }
 
-    // this will return array
+    // this will return array of rules
     public function rules():array
     {
         return[
             'firstname' => [self::REQUIRED, [self::MAX,   'max' => 30]],
             'lastname'  => [self::REQUIRED, [self::MAX,   'max' => 30]],
-            'email'     => [self::REQUIRED,  self::EMAIL],
+            'email'     => [self::REQUIRED,  self::EMAIL, [self::UNIQUE, 'table' => 'users']],
             'password'  => [self::REQUIRED, [self::MIN,   'min' => 8]],
             'confirm'   => [self::REQUIRED, [self::MATCH, 'match' => 'password']],
         ];
     }
-
-
 
 }

@@ -9,6 +9,8 @@ use app\controllers\AuthController;
 
 $app = new Application();
 
+// session_start();
+
 // homepage
 $app->router->get('/', 'content');
 $app->router->get('/page1', 'page1');

@@ -10,11 +10,14 @@ abstract class Model
     // this array will gather all errors
     public $errors = [];
 
-    public const REQUIRED   = 'required';
-    public const EMAIL      = 'email';
-    public const MIN        = 'min';
-    public const MAX        = 'max';
-    public const MATCH      = 'match';
+    public const REQUIRED       = 'required';
+    public const EMAIL          = 'email';
+    public const MIN            = 'min';
+    public const MAX            = 'max';
+    public const MATCH          = 'match';
+    public const UNIQUE         = 'unique';
+    public const DOESNTEXIST    = 'doesntexist';
+    public const PASSWORDVERIFY = 'passwordverify';
 
 
     public function load($data)
@@ -63,6 +66,17 @@ abstract class Model
                 if($ruleName === self::MATCH && $loadedInput !== $this->{$rule['match']}){
                     $this->addError($attribute, self::MATCH, $rule);
                 }
+                if($ruleName === self::UNIQUE){
+                    $tableName = $rule['table'];
+                    $statment = Application::$app->PDO->prepare("SELECT * FROM $tableName WHERE $attribute = :$attribute");
+                    $statment->bindValue(":$attribute", $loadedInput);
+                    $statment->execute();
+                    $record = $statment->fetchObject();
+                    if($record){
+                        $this->addError($attribute, self::UNIQUE, ['field' => $attribute]);
+                    }
+                }
+
             }
         }
         // if the errors is empty the validation is passed(it will return true)
@@ -80,14 +94,18 @@ abstract class Model
         $this->errors[$attribute][] = $message;
     }
 
+
     public function errorMessages()
     {
         return [
-            self::REQUIRED  => 'This field is required.',
-            self::EMAIL     => 'This field must be a valid email address.',
-            self::MIN       => 'Mininmun length of this field must be {min} characters.',
-            self::MAX       => 'Maximum  length of this field must be {max} characters.',
-            self::MATCH     => 'This field must be the same as {match}',
+            self::REQUIRED    => 'This field is required.',
+            self::EMAIL       => 'This field must be a valid email address.',
+            self::MIN         => 'Mininmun length of this field must be {min} characters.',
+            self::MAX         => 'Maximum  length of this field must be {max} characters.',
+            self::MATCH       => 'This field must be the same as {match}',
+            self::UNIQUE      => 'Record with this {field} already existes',
+            self::DOESNTEXIST => 'Record does not exist',
+            self::PASSWORDVERIFY=> 'Wrong password',
         ];
     }
 

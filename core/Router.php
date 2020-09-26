@@ -57,7 +57,7 @@ class Router
         }
 
         // else call the $callback function, and pass the request so in controller I can use $request
-        return call_user_func($callback, $this->request);
+        return call_user_func($callback, $this->request, $this->response ?? "");
 
     }
 

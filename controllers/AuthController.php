@@ -5,7 +5,9 @@ namespace app\controllers;
 use app\core\Application;
 use app\core\Controller;
 use app\core\Request;
+use app\core\Response;
 use app\models\User;
+use app\models\LoginUser;
 
 // it extends Controller because the render function is there
 class AuthController extends Controller
@@ -23,7 +25,8 @@ class AuthController extends Controller
             // if the request data was validated in User and the user was registrated
             if($user->validate() && $user->register())
             {
-                return  "hello";//$this->render('login', ['model' => $user]);
+                // redirect to the home page after successfuly registering the user
+                return  Application::$app->response->redirect('/');
             }
 
         }
@@ -31,14 +34,22 @@ class AuthController extends Controller
         return $this->render('register', ['model' => $user]);
     }
 
-    public function login(Request $request)
+    public function login(Request $request, Response $response)
     {
-        if($request->method() === "get")
-        {
-            return $this->render('login');
-        }
-        var_dump('hello from login post method');
 
-        return $this->render('', 'index');
+        $user = new LoginUser();
+
+        if($request->method() === "post")
+        {
+            $user->load($request->data());
+
+            if($user->validate() && $user->authenticate())
+            {
+                return  Application::$app->response->redirect('/');
+            }
+        }
+
+        return $this->render('login', ['model' => $user]);
+
     }
 }

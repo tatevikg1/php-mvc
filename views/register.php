@@ -2,7 +2,7 @@
 <h1>Register</h1>
 <form method="post" action="/register">
     <div class="form-group">
-        <label for="exampleInputEmail1">First name</label>
+        <label for="exampleInputFirstname">First name</label>
         <input type="text"
                 class="form-control <?php echo $model->hasError('firstname') ? 'is-invalid' : '' ?>"
                 value="<?php echo $model->firstname ?>"
@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="exampleInputEmail1">Last name</label>
+        <label for="exampleInputLastname">Last name</label>
         <input type="text"
                 class="form-control <?php echo $model->hasError('lastname') ? 'is-invalid' : '' ?>"
                 value="<?php echo $model->lastname ?>"
@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
+        <label for="exampleInputEmail">Email address</label>
         <input type="email"
                 class="form-control <?php echo $model->hasError('email') ? 'is-invalid' : '' ?>"
                 value="<?php echo $model->email ?>"
@@ -42,7 +42,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="exampleInputPassword1">Confirm Password</label>
+        <label for="exampleInputPassword2">Confirm Password</label>
         <input type="password"
                 class="form-control <?php echo $model->hasError('confirm') ? 'is-invalid' : '' ?>"
                 value="<?php echo $model->confirm ?>"
