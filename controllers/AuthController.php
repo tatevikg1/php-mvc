@@ -8,6 +8,8 @@ use app\core\Request;
 use app\core\Response;
 use app\models\User;
 use app\models\LoginUser;
+use app\core\Session;
+
 
 // it extends Controller because the render function is there
 class AuthController extends Controller
@@ -51,5 +53,13 @@ class AuthController extends Controller
 
         return $this->render('login', ['model' => $user]);
 
+    }
+
+    public function logout()
+    {
+        Session::unset('user_id');
+        // session_destroy();
+        // header redirects to the url (in this case '/')
+        return header('Location: /');
     }
 }

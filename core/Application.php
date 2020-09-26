@@ -12,6 +12,7 @@ class Application
     public $response;
     public $PDO;
     public static $app;
+    public $session;
 
     public function __construct()
     {
@@ -24,10 +25,20 @@ class Application
         $this->response = new Response();
         $this->router = new Router($this->request, $this->response);
         $this->response = new Response();
+        $this->session = new Session();
+
     }
 
     public function run()
     {
         echo $this->router->resolve();
+    }
+
+    public static function Guest()
+    {
+        if($_SESSION['user_id'] === NULL){
+            return true;
+        }
+        return false;
     }
 }

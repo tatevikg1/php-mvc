@@ -5,13 +5,14 @@ namespace app\models;
 use app\core\Model;
 use app\core\DB;
 use app\core\Application;
+use app\core\Session;
 /**
  *
  */
 class LoginUser extends Model
 {
     public $email;
-    public $password;
+    public $password ;
 
 
     public function authenticate()
@@ -30,7 +31,9 @@ class LoginUser extends Model
             $this->addError('password', self::PASSWORDVERIFY, ['field' => 'password']);
             return false;
         }
-        
+
+        Session::set('user_id', $user->id);
+
         return true;
     }
 

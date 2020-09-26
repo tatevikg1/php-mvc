@@ -5,6 +5,7 @@ namespace app\models;
 use app\core\Model;
 use app\core\Application;
 use app\core\DB;
+use app\core\Session;
 
 class User extends Model
 {
@@ -43,6 +44,10 @@ class User extends Model
         // // get the newly created user id
         // $user = DB::lastInsertId();
         // var_dump($user);
+
+        $user = $statment->fetchObject();
+
+        Session::set('user_id', $user->id);
 
         return true;
     }

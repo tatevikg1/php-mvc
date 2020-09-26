@@ -2,22 +2,22 @@
 
 namespace app\core;
 
-// class Session
-// {
-//     protected private FLASH_KEY = 'flash_messages';
-//
-//     function __construct(argument)
-//     {
-//         session_start();
-//     }
-//
-//     public function setFlash($key, $message)
-//     {
-//         $_SESSION[self::'FLASH_KEY'][$key] = $message;
-//     }
-//
-//     public function getFlash($key)
-//     {
-//
-//     }
-// }
+class Session
+{
+
+    function __construct()
+    {
+        session_start();
+    }
+
+    public static function set($key, $value)
+    {
+        $_SESSION[$key] = $value;
+    }
+
+    public static function unset($key)
+    {
+        unset($_SESSION[$key]);
+    }
+
+}

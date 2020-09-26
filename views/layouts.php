@@ -1,4 +1,5 @@
 <?php
+use app\core\Application;
 ?>
 
 <!doctype html>
@@ -34,16 +35,21 @@
                         </li>
                     </ul>
 
+
                     <ul class="navbar-nav ml-auto">
-                      <li class="nav-item mr-3">
-                        <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
-                      </li>
-                      <li class="nav-item mr-3">
-                        <a class="nav-link" href="/register">Register</a>
-                      </li>
-                      <li class="nav-item mr-3">
-                        <a class="nav-link" href="/logout">Logout</a>
-                      </li>
+                    <?php if (Application::Guest()): ?>
+                        <li class="nav-item mr-3">
+                            <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item mr-3">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                    <?php else: ?>
+
+                        <li class="nav-item mr-3">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    <?php endif; ?>
 
                     </ul>
                 </div>
