@@ -2,6 +2,8 @@
 
 namespace app\core;
 
+use app\core\exception\NotFoundException;
+
 class Router
 {
     protected  $routes = [];
@@ -40,9 +42,8 @@ class Router
 
         if($callback === false)
         {
-            // Application::$app->response->setStatusCode(404);
-            $this->response->setStatusCode(404);
-            return $this->renderView("_404");
+            // Application::$app->response->setStatusCode(404); (it is done in Application::run function)
+            throw new NotFoundException();
         }
         // if the $callback is a string(not a function) render the view with the name of that string
         if(is_string($callback))
@@ -53,7 +54,16 @@ class Router
         // $this->render() in  controller works if it is an instance of class(object)
         if(is_array($callback))
         {
-            $callback[0] = new $callback[0]();
+            Application::$app->controller = new $callback[0]();
+            $controller = Application::$app->controller;
+            $callback[0] = $controller;
+
+            // callback at index one is the action of controller
+            $controller->action =  $callback[1];
+            // get all middlewares for the acction and execute them
+            foreach($controller->getMiddlewares() as $middleware){
+                $middleware->execute();
+            }
         }
 
         // else call the $callback function, and pass the request so in controller I can use $request
@@ -74,7 +84,7 @@ class Router
     {
         // include but dont show yet(creates an output buffer)
         ob_start();
-        include_once __DIR__."/../views/layouts.php";
+        include_once __DIR__."/../views/_layouts.php";
         // returns the contents of the output buffer and then deletes the contents from the buffer.
         return ob_get_clean();
     }

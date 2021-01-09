@@ -4,7 +4,7 @@
 require_once __DIR__.'/../vendor/autoload.php';
 
 use app\core\Application;
-use app\controllers\FormController;
+use app\controllers\ProfileController;
 use app\controllers\AuthController;
 
 $app = new Application();
@@ -14,6 +14,8 @@ $app = new Application();
 // homepage
 $app->router->get('/', 'content');
 $app->router->get('/page1', 'page1');
+// routes of profile controller
+$app->router->get('/profile',  [ProfileController::class, 'profile']);
 // auth routes
 $app->router->get   ('/register',   [AuthController::class, 'register']);
 $app->router->post  ('/register',   [AuthController::class, 'register']);

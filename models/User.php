@@ -42,10 +42,10 @@ class User extends Model
         // }
 
         // // get the newly created user id
-        // $user = DB::lastInsertId();
+        $user = DB::lastInsertId();
         // var_dump($user);
 
-        $user = $statment->fetchObject();
+        // $user = $statment->fetchObject();
 
         Session::set('user_id', $user->id);
 

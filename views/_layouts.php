@@ -45,7 +45,9 @@ use app\core\Application;
                             <a class="nav-link" href="/register">Register</a>
                         </li>
                     <?php else: ?>
-
+                        <li class="nav-item mr-3">
+                            <a class="nav-link" href="/profile">Profile</a>
+                        </li>
                         <li class="nav-item mr-3">
                             <a class="nav-link" href="/logout">Logout</a>
                         </li>

@@ -2,11 +2,11 @@
 
 namespace app\core;
 
+use Exception;
 use \PDO;
 
 class Application
 {
-
     public $router;
     public $request;
     public $response;
@@ -26,12 +26,19 @@ class Application
         $this->router = new Router($this->request, $this->response);
         $this->response = new Response();
         $this->session = new Session();
-
     }
 
     public function run()
     {
-        echo $this->router->resolve();
+        try{
+            echo $this->router->resolve();
+
+        }catch(Exception $e){
+            // set the status code of response
+            $this->response->setStatusCode($e->getCode());
+            // if there was an exception render error page and pass the exception with it
+            echo $this->router->renderView('_error', ['exception' => $e]);
+        }
     }
 
     public static function Guest()
