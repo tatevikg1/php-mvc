@@ -43,7 +43,7 @@ class Application
 
     public static function Guest()
     {
-        if($_SESSION['user_id'] === NULL){
+        if($_SESSION['user'] === NULL){
             return true;
         }
         return false;

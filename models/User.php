@@ -3,7 +3,7 @@
 namespace app\models;
 
 use app\core\Model;
-use app\core\Application;
+// use app\core\Application;
 use app\core\DB;
 use app\core\Session;
 
@@ -34,20 +34,6 @@ class User extends Model
 
         // executing the statement
         $createUser->execute();
-
-        // // get all users
-        // $users = DB::query("SELECT * FROM users;");
-        // while ($user = $users->fetch()) {
-        //     var_dump($user['firstname']);
-        // }
-
-        // // get the newly created user id
-        $user = DB::lastInsertId();
-        // var_dump($user);
-
-        // $user = $statment->fetchObject();
-
-        Session::set('user_id', $user->id);
 
         return true;
     }

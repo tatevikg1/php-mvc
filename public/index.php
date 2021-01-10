@@ -28,3 +28,4 @@ $app->run();
 // MESSAGE TO MYSELF
 
 // Run the app from public folder where the index.php is(the program starts with index.php)
+// php -S 127.0.0.1:8000

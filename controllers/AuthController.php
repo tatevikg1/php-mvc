@@ -27,8 +27,10 @@ class AuthController extends Controller
             // if the request data was validated in User and the user was registrated
             if($user->validate() && $user->register())
             {
+                Session::set('user', $user);
+
                 // redirect to the home page after successfuly registering the user
-                return  Application::$app->response->redirect('/');
+                return  Application::$app->response->redirect('/profile');
             }
 
         }
@@ -47,7 +49,7 @@ class AuthController extends Controller
 
             if($user->validate() && $user->authenticate())
             {
-                return  Application::$app->response->redirect('/');
+                return  Application::$app->response->redirect('/profile');
             }
         }
 
@@ -57,7 +59,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        Session::unset('user_id');
+        Session::unset('user');
         // session_destroy();
         // header redirects to the url (in this case '/')
         return header('Location: /');

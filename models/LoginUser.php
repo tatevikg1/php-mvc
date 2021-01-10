@@ -32,7 +32,7 @@ class LoginUser extends Model
             return false;
         }
 
-        Session::set('user_id', $user->id);
+        Session::set('user', $user);
 
         return true;
     }
