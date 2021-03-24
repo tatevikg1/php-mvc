@@ -1,12 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\models;
 
 use app\core\Model;
-// use app\core\Application;
 use app\core\DB;
-use app\core\Session;
 
+/**
+ * @var string $firstname
+ * @var string $lastname
+ * @var string $email
+ * @var string $password
+ * @var string $confirm
+*/
 class User extends Model
 {
     public $firstname;
@@ -15,18 +22,21 @@ class User extends Model
     public $password;
     public $confirm;
 
-
-    public function register()
+    /**
+     * Creates a DB record with the loaded data
+     * @return bool
+    */
+    public function register(): bool
     {
         // hash the password before saving
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
 
         // sqlite statement with  parameters
-        $statment = "INSERT INTO  users (firstname, lastname, email, password)
+        $statement = "INSERT INTO  users (firstname, lastname, email, password)
                 VALUES (:firstname, :lastname, :email, :password)";
 
-        $createUser = DB::prepare($statment);
-        // bind the values to the statment
+        $createUser = DB::prepare($statement);
+        // bind the values to the statement
         $createUser->bindValue(":firstname", $this->firstname);
         $createUser->bindValue(":lastname",  $this->lastname);
         $createUser->bindValue(":email",     $this->email);
@@ -38,7 +48,10 @@ class User extends Model
         return true;
     }
 
-    // this will return array of rules
+    /**
+     * This will return array of rules for User model
+     * @return array
+    */ 
     public function rules():array
     {
         return[
@@ -49,5 +62,4 @@ class User extends Model
             'confirm'   => [self::REQUIRED, [self::MATCH, 'match' => 'password']],
         ];
     }
-
 }

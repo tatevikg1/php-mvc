@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\core\middleware;
 
-use app\core\middleware\BaseMiddleware;
 use app\core\Application;
 use app\core\exception\ForbiddenException;
 
-class AuthMiddleware extends BaseMiddleware
+class AuthMiddleware implements BaseMiddleware
 {
     public  $actions = [];
 
@@ -15,12 +16,17 @@ class AuthMiddleware extends BaseMiddleware
         $this->actions = $actions;
     }
 
+    /**
+     * If the user is not authenticated throws \app\core\exception\ForbiddenException
+     * @throws ForbiddenException
+     */
     public function execute()
     {
         // if the user is guest
-        if(Application::Guest()) {
-            // if no extion is specified or the specified action is the current action
-            if(empty($this->actions) || in_array(Application::$app->controller->action, $this->actions)){
+        if (Application::Guest()) {
+            // if no exertion is specified or the specified action is the current action
+            if (empty($this->actions)
+                || in_array(Application::$app->controller->action, $this->actions)){
                 throw new ForbiddenException();
             }
         }

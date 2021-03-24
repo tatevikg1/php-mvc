@@ -1,23 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\core;
 
+/**
+ * @method void set(string $key, $value)
+ * @method void unset(string $key)
+*/
 class Session
 {
-
     function __construct()
     {
         session_start();
     }
 
-    public static function set($key, $value)
+    /**
+     * Sets session data
+     * @param string $key
+     * @param mixed $value
+     */
+    public static function set(string $key, $value)
     {
         $_SESSION[$key] = $value;
     }
 
-    public static function unset($key)
+    /**
+     * Unsets session data
+     * @param string $key
+    */
+    public static function unset(string $key)
     {
         unset($_SESSION[$key]);
     }
-
 }

@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\controllers;
 
 use app\core\Application;
 use app\core\Controller;
 use app\core\Request;
-use app\core\Response;
 use app\models\User;
 use app\models\LoginUser;
 use app\core\Session;
@@ -18,19 +19,17 @@ class AuthController extends Controller
     {
         $user = new User();
 
-        if($request->method() === "post")
-        {
-            // load the request data to the model so it can be rerendered if there was an date_get_last_errors
+        if ($request->method() === "post") {
+            // load the request data to the model, so it can be rendered if there was an date_get_last_errors
             // and the user is redirected to the register page with errors
             $user->load($request->data());
 
-            // if the request data was validated in User and the user was registrated
-            if($user->validate() && $user->register())
-            {
+            // if the request data was validated in User and the user was registered
+            if ($user->validate() && $user->register()) {
                 Session::set('user', $user);
 
-                // redirect to the home page after successfuly registering the user
-                return  Application::$app->response->redirect('/profile');
+                // redirect to the home page after successfully registering the user
+                Application::$app->response->redirect('/profile');
             }
 
         }
@@ -38,18 +37,16 @@ class AuthController extends Controller
         return $this->render('register', ['model' => $user]);
     }
 
-    public function login(Request $request, Response $response)
+    public function login(Request $request)
     {
-
         $user = new LoginUser();
 
-        if($request->method() === "post")
-        {
+        if ($request->method() === "post") {
             $user->load($request->data());
 
-            if($user->validate() && $user->authenticate())
+            if ($user->validate() && $user->authenticate())
             {
-                return  Application::$app->response->redirect('/profile');
+                Application::$app->response->redirect('/profile');
             }
         }
 
@@ -62,6 +59,6 @@ class AuthController extends Controller
         Session::unset('user');
         // session_destroy();
         // header redirects to the url (in this case '/')
-        return header('Location: /');
+        header('Location: /');
     }
 }

@@ -14,6 +14,7 @@
     },
     "require": {
         "vlucas/phpdotenv": "^5.2",
-        "robmorgan/phinx": "^0.12.4"
+        "robmorgan/phinx": "^0.12.4",
+        "ext-pdo": "*"
     }
 }

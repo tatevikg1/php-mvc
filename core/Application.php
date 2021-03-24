@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\core;
 
 use Exception;
-use \PDO;
+use PDO;
 
 class Application
 {
@@ -13,27 +15,29 @@ class Application
     public $PDO;
     public static $app;
     public $session;
+    public $controller;
 
     public function __construct()
     {
-        // make the app accesible in whole application
+        // make the app accessible in whole application
         self::$app = $this;
 
-        $this->PDO = new PDO('sqlite:/home/ta/Documents/php/mvc/.sqlite3');
+        $this->PDO = new PDO('sqlite:/home/t/Documents/github/php-mvc/.sqlite3');
         $this->PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->request = new Request();
         $this->response = new Response();
         $this->router = new Router($this->request, $this->response);
-        $this->response = new Response();
         $this->session = new Session();
     }
 
+    /**
+     * runs the application
+    */
     public function run()
     {
-        try{
+        try {
             echo $this->router->resolve();
-
-        }catch(Exception $e){
+        } catch (Exception $e) {
             // set the status code of response
             $this->response->setStatusCode($e->getCode());
             // if there was an exception render error page and pass the exception with it
@@ -41,9 +45,13 @@ class Application
         }
     }
 
-    public static function Guest()
+    /**
+     * determines if the user is authenticated or not
+     * @return bool 
+    */
+    public static function Guest(): bool
     {
-        if($_SESSION['user'] === NULL){
+        if ($_SESSION['user'] === NULL) {
             return true;
         }
         return false;

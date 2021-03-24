@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\core\middleware;
 
-abstract class BaseMiddleware
+interface BaseMiddleware
 {
-    abstract public function execute();
+    public function execute();
 }

@@ -4,30 +4,34 @@ namespace app\models;
 
 use app\core\Model;
 use app\core\DB;
-use app\core\Application;
 use app\core\Session;
+
 /**
- *
- */
+ * @var string $email
+ * @var string $password
+*/
 class LoginUser extends Model
 {
     public $email;
     public $password ;
 
-
-    public function authenticate()
+    /**
+     * Check user data against db records, if the user is found sets session data for the user
+     * @return bool
+    */
+    public function authenticate(): bool
     {
         // get the user with that email address
-        $statment = DB::prepare("SELECT * FROM users WHERE email=:email ");
-        $statment->bindValue(":email", $this->email);
-        $statment->execute();
-        $user = $statment->fetchObject();
+        $statement = DB::prepare("SELECT * FROM users WHERE email=:email ");
+        $statement->bindValue(":email", $this->email);
+        $statement->execute();
+        $user = $statement->fetchObject();
 
-        if(!$user){
+        if (!$user) {
             $this->addError('email', self::DOESNTEXIST, ['field' => 'email']);
             return false;
         }
-        if(!password_verify($this->password, $user->password)){
+        if (!password_verify($this->password, $user->password)) {
             $this->addError('password', self::PASSWORDVERIFY, ['field' => 'password']);
             return false;
         }
@@ -37,6 +41,9 @@ class LoginUser extends Model
         return true;
     }
 
+    /**
+     * Validation rules for login user
+    */
     public function rules():array
     {
         return [
@@ -44,5 +51,4 @@ class LoginUser extends Model
             'password'  => [self::REQUIRED, [self::MIN,   'min' => 8]],
         ];
     }
-
 }

@@ -1,23 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\core;
+
+use PDOStatement;
 
 class DB
 {
-    public static function prepare($sqlStatment)
+    /**
+     * Prepares a statement for execution and returns a statement object
+     * @param string $sqlStatement
+     * @return false|PDOStatement
+    */
+    public static function prepare(string $sqlStatement)
     {
-        return Application::$app->PDO->prepare($sqlStatment);
+        return Application::$app->PDO->prepare($sqlStatement);
     }
 
-    public static function query($sqlStatment)
+    /**
+     * Executes an SQL statement, returning a result set as a PDOStatement object
+     * @param mixed $sqlStatement
+     * @return PDOStatement|false
+    */
+    public static function query($sqlStatement)
     {
-        return Application::$app->PDO->query($sqlStatment);
-
+        return Application::$app->PDO->query($sqlStatement);
     }
 
-    public static function lastInsertId()
+    /**
+     * Returns the ID of the last inserted row or sequence value
+     * @return string
+    */
+    public static function lastInsertId(): string
     {
         return Application::$app->PDO->lastInsertId();
     }
-
 }

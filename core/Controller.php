@@ -1,30 +1,47 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\core;
 
-use app\core\Application;
 use app\core\middleware\BaseMiddleware;
 
+/**
+ * @var string $action
+ * @var array $middlewares
+*/
 class Controller
 {
     public  $action = '';
-    /**
-     * @var app\core\middleware\BaseMiddleware[]
-     */
+
     protected  $middlewares = [];
 
 
-    public function render($view, $param = [])
+    /**
+     * renders the view.
+     * @param string $view
+     * @param array $param
+     * @return false|string
+    */
+    public function render(string $view, array $param = [])
     {
         return Application::$app->router->renderView($view, $param);
     }
 
+    /**
+     * Adds middlewares for controller's middleware array.
+     * @param BaseMiddleware $middleware
+    */
     public function registerMiddleware(BaseMiddleware $middleware)
     {
         $this->middlewares[] = $middleware;
     }
 
-    public function getMiddlewares()
+    /**
+     * returns middlewares of the controller
+     * @return array 
+    */
+    public function getMiddlewares(): array
     {
         return $this->middlewares;
     }
