@@ -3,10 +3,17 @@
 namespace app\models;
 
 use app\core\Model;
-// use app\core\Application;
 use app\core\DB;
-use app\core\Session;
 
+/**
+ * @var string $firstname
+ * @var string $lastname
+ * @var string $email
+ * @var string $password
+ * @var string $confirm
+ * @method bool register()
+ * @method array rules()
+*/
 class User extends Model
 {
     public $firstname;
@@ -15,7 +22,10 @@ class User extends Model
     public $password;
     public $confirm;
 
-
+    /**
+     * Creates a DB record with the loaded data
+     * @return bool
+    */
     public function register()
     {
         // hash the password before saving
@@ -38,7 +48,10 @@ class User extends Model
         return true;
     }
 
-    // this will return array of rules
+    /**
+     * This will return array of rules for User model
+     * @return array
+    */ 
     public function rules():array
     {
         return[

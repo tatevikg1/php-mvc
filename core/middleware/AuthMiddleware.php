@@ -6,6 +6,10 @@ use app\core\middleware\BaseMiddleware;
 use app\core\Application;
 use app\core\exception\ForbiddenException;
 
+/**
+ * @param string[] $actions
+ * @method void execute()
+*/
 class AuthMiddleware extends BaseMiddleware
 {
     public  $actions = [];
@@ -15,6 +19,9 @@ class AuthMiddleware extends BaseMiddleware
         $this->actions = $actions;
     }
 
+    /**
+     * If the user is not authenticated throws \app\core\exception\ForbiddenException
+    */
     public function execute()
     {
         // if the user is guest

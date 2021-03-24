@@ -4,6 +4,10 @@ namespace app\core\exception;
 
 use \Exception;
 
+/**
+ * @var int $code
+ * @var string $message
+*/
 class NotFoundException extends Exception
 {
     protected $code = 404;

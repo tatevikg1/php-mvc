@@ -4,17 +4,23 @@ namespace app\models;
 
 use app\core\Model;
 use app\core\DB;
-use app\core\Application;
 use app\core\Session;
+
 /**
- *
- */
+ * @var string $email
+ * @var string $password
+ * @method bool authenticate()
+ * @method array rules()
+*/
 class LoginUser extends Model
 {
     public $email;
     public $password ;
 
-
+    /**
+     * Chack user data against db records, if the user is found sets session data for the user
+     * @return bool
+    */
     public function authenticate()
     {
         // get the user with that email address
@@ -37,6 +43,9 @@ class LoginUser extends Model
         return true;
     }
 
+    /**
+     * Validation rules for login user
+    */
     public function rules():array
     {
         return [

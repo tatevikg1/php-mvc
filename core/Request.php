@@ -2,9 +2,17 @@
 
 namespace app\core;
 
+/**
+ * @method string getPath()
+ * @method string method()
+ * @method array  data()
+*/
 class Request
 {
-
+    /**
+     * Returns the path part of $_SERVER['REQUEST_URI'](before the '?' symbol)
+     * @return string $path
+    */
     public function getPath()
     {
         $path = $_SERVER['REQUEST_URI'] ?? '/';
@@ -19,11 +27,19 @@ class Request
 
     }
 
+    /**
+     * returns lowercase request method
+     * @return string $_SERVER['REQUEST_METHOD']
+    */
     public function method()
     {        
         return  strtolower($_SERVER['REQUEST_METHOD']);
     }
 
+    /**
+     * returns sanitized data from superglobal _GET or _POST
+     * @return array $body
+    */
     public function data()
     {
         $body = [];
@@ -50,6 +66,5 @@ class Request
         return $body;
 
     }
-
 
 }

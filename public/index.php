@@ -9,10 +9,8 @@ use app\controllers\AuthController;
 
 $app = new Application();
 
-// session_start();
-
 // homepage
-$app->router->get('/', 'content');
+$app->router->get('/',      'content');
 $app->router->get('/page1', 'page1');
 // routes of profile controller
 $app->router->get('/profile',  [ProfileController::class, 'profile']);

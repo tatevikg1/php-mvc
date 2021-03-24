@@ -4,35 +4,50 @@ namespace app\core;
 
 use app\core\exception\NotFoundException;
 
+/**
+ * @var array $routes
+ * @var \app\core\Request $request
+ * @var \app\core\Rresponse $response
+ * @method void get(string $path, $callback)
+ * @method void post(string $path, $callback)
+*/
 class Router
 {
     protected  $routes = [];
-
     public  $request;
     public  $response;
 
-
+    /**
+     * @param \app\core\Request $request
+     * @param \app\core\Response $response
+    */
     public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
         $this->response = $response;
     }
 
+    /**
+     * This makes get requests posible
+     * @param string $path
+    */
     public function get($path, $callback)
     {
-        // this makes get requsests posible
         $this->routes['get'][$path] = $callback;
     }
 
+    /**
+     * This makes post requests posible
+     * @param string $path
+    */
     public function post($path, $callback)
     {
-        // this maker post requests posible
         $this->routes['post'][$path] = $callback;
     }
 
+
     public function resolve()
     {
-
         $path = $this->request->getPath();
 
         $method = $this->request->method();
@@ -68,9 +83,14 @@ class Router
 
         // else call the $callback function, and pass the request so in controller I can use $request
         return call_user_func($callback, $this->request, $this->response ?? "");
-
     }
 
+    /**
+     * Renders the view, replacing layaouts {{ content }} with view content.
+     * @param string $view
+     * @param array $param
+     * @return string|false
+    */
     public function renderView($view, $param = [])
     {
         $layoutContent = $this->layoutContent();
@@ -80,15 +100,24 @@ class Router
         return str_replace('{{content}}', $viewContent, $layoutContent);
     }
 
+    /**
+     * Includes the layout template for the page view.
+    */
     protected function layoutContent()
     {
-        // include but dont show yet(creates an output buffer)
+        // include but don't show yet(creates an output buffer)
         ob_start();
         include_once __DIR__."/../views/_layouts.php";
         // returns the contents of the output buffer and then deletes the contents from the buffer.
         return ob_get_clean();
     }
 
+    /**
+     * Includes the view content (changing the variables in template with parameters passed) for the page view
+     * @param string $view
+     * @param array $param
+     * @return string|false
+    */
     protected function renderOnlyView($view, $param = [])
     {
         foreach ($param as $key => $value) {

@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\core\Application;
 use app\core\Controller;
 use app\core\Request;
-use app\core\Response;
+// use app\core\Response;
 use app\models\User;
 use app\models\LoginUser;
 use app\core\Session;
@@ -38,7 +38,7 @@ class AuthController extends Controller
         return $this->render('register', ['model' => $user]);
     }
 
-    public function login(Request $request, Response $response)
+    public function login(Request $request)
     {
 
         $user = new LoginUser();

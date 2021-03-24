@@ -3,8 +3,13 @@
 namespace app\core;
 
 
-// Model is abstract to avoid creating an instance of models
-// its functions is only for classes that extend from it
+/**
+ * Model is abstract to avoid creating an instance of models its functions is only for classes that extend from it
+ * @var array $errors
+ * @method void load($data)
+ * @method bool validate()
+ * @method void addError($attribute, $ruleName, $param = [])
+*/
 abstract class Model
 {
     // this array will gather all errors
@@ -20,6 +25,10 @@ abstract class Model
     public const PASSWORDVERIFY = 'passwordverify';
 
 
+    /**
+     * loads the $data to model proparties
+     * @param mixed $data
+    */
     public function load($data)
     {
         foreach ($data as $key => $input) {
@@ -35,6 +44,10 @@ abstract class Model
     // this abstract method is implimented in the model that extends from this Model
     abstract public function rules():array;
 
+    /**
+     * Validates loaded data
+     * @return bool 
+    */
     public function validate()
     {
         foreach ($this->rules() as $attribute => $rules) {
@@ -83,6 +96,13 @@ abstract class Model
         return empty($this->errors);
     }
 
+    /**
+     * Adds errors to model's errors array 
+     * @param mixed $attribute
+     * @param mixed $ruleName
+     * @param mixed $param
+     * @return void
+    */
     public function addError($attribute, $ruleName, $param = [])
     {
         $message = $this->errorMessages()[$ruleName] ?? '';
@@ -95,6 +115,10 @@ abstract class Model
     }
 
 
+    /**
+     * Contains error messages for validation rules
+     * @return string[]
+    */
     public function errorMessages()
     {
         return [
@@ -109,38 +133,23 @@ abstract class Model
         ];
     }
 
+    /**
+     * Chacks if there is an error for the given attribute 
+     * @param string $attribute
+     * @return bool
+    */
     public function hasError($attribute)
     {
         return $this->errors[$attribute] ? true :false;
     }
 
+    /**
+     * @param string $attribute
+     * @return string|bool 
+    */
     public function getFirtsError($attribute)
     {
         return $this->errors[$attribute][0] ?? false;
     }
 
-
-    // public function validate()
-    // {
-    //     if (empty($_POST["firstname"])) {
-    //         $nameErr = "Name is required";
-    //     } else {
-    //         $firstname = test_input($_POST["firstname"]);
-    //     }
-    //
-    //     if (empty($_POST["email"])) {
-    //         $emailErr = "Email is required";
-    //     } else {
-    //         $email = test_input($_POST["email"]);
-    //     }
-    //
-    // }
-    //
-    // function test_input($input)
-    // {
-    //     $input = trim($input);
-    //     $input = stripslashes($input);
-    //     $input = htmlspecialchars($input);
-    //     return $input;
-    // }
 }

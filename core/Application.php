@@ -5,6 +5,17 @@ namespace app\core;
 use Exception;
 use \PDO;
 
+/**
+ * @var \app\core\Router $router
+ * @var \app\core\Request $request
+ * @var \app\core\Response $response
+ * @var \PDO $PDO
+ * @var \app\core\Aplication $app
+ * @var \app\core\Session $session
+ * 
+ * @method bool Guest()
+ * @method void run()
+*/
 class Application
 {
     public $router;
@@ -24,10 +35,12 @@ class Application
         $this->request = new Request();
         $this->response = new Response();
         $this->router = new Router($this->request, $this->response);
-        $this->response = new Response();
         $this->session = new Session();
     }
 
+    /**
+     * runs the application
+    */
     public function run()
     {
         try{
@@ -41,6 +54,10 @@ class Application
         }
     }
 
+    /**
+     * determines if the user is authenticated or not
+     * @return bool 
+    */
     public static function Guest()
     {
         if($_SESSION['user'] === NULL){
