@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace app\core;
+namespace Tatevik\Framework;
 
 use Exception;
 use PDO;
@@ -24,7 +24,7 @@ class Application
 
         $this->PDO = new PDO('sqlite:/home/t/Documents/github/php-mvc/.sqlite3');
         $this->PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $this->request = new Request();
+        $this->request = Request::createFromGlobals();
         $this->response = new Response();
         $this->router = new Router($this->request, $this->response);
         $this->session = new Session();
@@ -33,7 +33,7 @@ class Application
     /**
      * runs the application
     */
-    public function run()
+    public function run(): void
     {
         try {
             echo $this->router->resolve();

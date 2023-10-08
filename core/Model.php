@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace app\core;
+namespace Tatevik\Framework;
 
-abstract class Model
+ abstract class Model
 {
-    // this array will gather all errors
-    public $errors = [];
+    public array $errors = [];
 
     public const REQUIRED       = 'required';
     public const EMAIL          = 'email';

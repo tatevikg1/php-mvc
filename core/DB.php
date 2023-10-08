@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace app\core;
+namespace Tatevik\Framework;
 
 use PDOStatement;
 

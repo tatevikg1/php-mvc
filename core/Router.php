@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace app\core;
+namespace Tatevik\Framework;
 
-use app\core\exception\NotFoundException;
+use Tatevik\Framework\Exception\NotFoundException;
 
 class Router
 {
-    protected  $routes = [];
-    public  $request;
-    public  $response;
+    protected static array $routes = [];
+    public Request $request;
+    public Response $response;
 
     /**
      * @param Request $request
@@ -25,21 +25,21 @@ class Router
     /**
      * This makes get requests possible
      * @param string $path
-     * @param callable $callback
+     * @param mixed $callback
      */
-    public function get(string $path, callable $callback)
+    public static function get(string $path, $callback): void
     {
-        $this->routes['get'][$path] = $callback;
+        self::$routes['get'][$path] = $callback;
     }
 
     /**
      * This makes post requests possible
      * @param string $path
-     * @param callable $callback
+     * @param mixed $callback
      */
-    public function post(string $path, callable $callback)
+    public static function post(string $path, $callback): void
     {
-        $this->routes['post'][$path] = $callback;
+        self::$routes['post'][$path] = $callback;
     }
 
 
@@ -49,11 +49,8 @@ class Router
     public function resolve()
     {
         $path = $this->request->getPath();
-
         $method = $this->request->method();
-        // if there is a route with this method and path, it will return an object,
-        // else null which will be set to false with the help of ??
-        $callback = $this->routes[$method][$path] ?? false;
+        $callback = self::$routes[$method][$path] ?? false;
 
         if ($callback === false) {
             // Application::$app->response->setStatusCode(404); (it is done in Application::run function)
@@ -88,7 +85,7 @@ class Router
      * @param array $param
      * @return string|false
     */
-    public function renderView(string $view, array $param = [])
+    public function renderView(string $view, array $param = []): bool|string
     {
         $layoutContent = $this->layoutContent();
         $viewContent = $this->renderOnlyView($view, $param);
@@ -115,7 +112,7 @@ class Router
      * @param array $param
      * @return string|false
     */
-    protected function renderOnlyView(string $view, array $param = [])
+    protected function renderOnlyView(string $view, array $param = []): bool|string
     {
         foreach ($param as $key => $value) {
             // one $ returns the variables value the second makes variable with that namespace

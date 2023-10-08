@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace app\models;
+namespace App\Models;
 
-use app\core\Model;
-use app\core\DB;
+use Tatevik\Framework\DB;
+use Tatevik\Framework\Model;
 
 /**
  * @var string $firstname

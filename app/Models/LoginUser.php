@@ -1,10 +1,10 @@
 <?php
 
-namespace app\models;
+namespace App\Models;
 
-use app\core\Model;
-use app\core\DB;
-use app\core\Session;
+use Tatevik\Framework\DB;
+use Tatevik\Framework\Model;
+use Tatevik\Framework\Session;
 
 /**
  * @var string $email

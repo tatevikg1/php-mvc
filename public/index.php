@@ -1,25 +1,14 @@
 <?php
 
-// the .. is to go one directory back as index in public directory not root
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+//require_once __DIR__ . '/../core/Helpers.php';
+set_include_path('/../config/routes/');
 
-use app\core\Application;
-use app\controllers\ProfileController;
-use app\controllers\AuthController;
+require_once __DIR__ . '/../core/autoload/routes.php';
+
+use Tatevik\Framework\Application;
 
 $app = new Application();
-
-// homepage
-$app->router->get('/',      'content');
-$app->router->get('/page1', 'page1');
-// routes of profile controller
-$app->router->get('/profile',  [ProfileController::class, 'profile']);
-// auth routes
-$app->router->get   ('/register',   [AuthController::class, 'register']);
-$app->router->post  ('/register',   [AuthController::class, 'register']);
-$app->router->get   ('/login',      [AuthController::class, 'login']);
-$app->router->post  ('/login',      [AuthController::class, 'login']);
-$app->router->get   ('/logout',     [AuthController::class, 'logout']);
 
 $app->run();
 

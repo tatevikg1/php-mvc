@@ -1,5 +1,5 @@
 <?php
-use app\core\Application;
+use Tatevik\Framework\Application;
 ?>
 
 <!doctype html>

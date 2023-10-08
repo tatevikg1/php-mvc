@@ -9,12 +9,16 @@
 
     "autoload":{
         "psr-4":{
-            "app\\": "./"
+            "App\\": "app/",
+            "Tatevik\\Framework\\": "core/"
         }
     },
     "require": {
         "vlucas/phpdotenv": "^5.2",
         "robmorgan/phinx": "^0.12.4",
         "ext-pdo": "*"
+    },
+    "require-dev": {
+        "larapack/dd": "^1.1"
     }
 }

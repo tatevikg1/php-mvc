@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace app\core;
+namespace Tatevik\Framework;
 
-use app\core\middleware\BaseMiddleware;
+use Tatevik\Framework\Middleware\BaseMiddleware;
 
 /**
  * @var string $action

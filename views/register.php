@@ -8,7 +8,7 @@
                 value="<?php echo $model->firstname ?>"
                 placeholder="Name" name="firstname">
         <div class="invalid-feedback">
-            <?php echo $model->getFirtsError('firstname');?>
+            <?php echo $model->getFirstError('firstname');?>
         </div>
     </div>
     <div class="form-group">
@@ -18,7 +18,7 @@
                 value="<?php echo $model->lastname ?>"
                 placeholder="Surname" name="lastname">
         <div class="invalid-feedback">
-            <?php echo $model->getFirtsError('lastname');?>
+            <?php echo $model->getFirstError('lastname');?>
         </div>
     </div>
     <div class="form-group">
@@ -28,7 +28,7 @@
                 value="<?php echo $model->email ?>"
                 placeholder="Enter email" name="email">
         <div class="invalid-feedback">
-            <?php echo $model->getFirtsError('email');?>
+            <?php echo $model->getFirstError('email');?>
         </div>
     </div>
     <div class="form-group">
@@ -38,7 +38,7 @@
                 value="<?php echo $model->password ?>"
                 placeholder="Password" name="password">
         <div class="invalid-feedback">
-            <?php echo $model->getFirtsError('password');?>
+            <?php echo $model->getFirstError('password');?>
         </div>
     </div>
     <div class="form-group">
@@ -48,7 +48,7 @@
                 value="<?php echo $model->confirm ?>"
                 placeholder="Password" name="confirm">
         <div class="invalid-feedback">
-            <?php echo $model->getFirtsError('confirm');?>
+            <?php echo $model->getFirstError('confirm');?>
         </div>
     </div>
 

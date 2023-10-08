@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace app\core\middleware;
+namespace Tatevik\Framework\Middleware;
 
-use app\core\Application;
-use app\core\exception\ForbiddenException;
+use Tatevik\Framework\Application;
+use Tatevik\Framework\Exception\ForbiddenException;
 
 class AuthMiddleware implements BaseMiddleware
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace app\controllers;
+namespace App\Controllers;
 
-use app\core\Controller;
-use app\core\middleware\AuthMiddleware;
+use Tatevik\Framework\Controller;
+use Tatevik\Framework\Middleware\AuthMiddleware;
 
 class ProfileController extends Controller
 {

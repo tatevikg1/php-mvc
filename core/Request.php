@@ -2,10 +2,23 @@
 
 declare(strict_types=1);
 
-namespace app\core;
+namespace Tatevik\Framework;
 
 class Request
 {
+    public function __construct(
+        public readonly array $getParams,
+        public readonly array $postParams,
+        public readonly array $cookies,
+        public readonly array $files,
+        public readonly array $server,
+    ) { }
+
+    public static function createFromGlobals(): static
+    {
+        return new self($_GET, $_POST, $_COOKIE, $_FILES, $_SERVER);
+    }
+
     /**
      * Returns the path part of $_SERVER['REQUEST_URI'](before the '?' symbol)
      * @return string $path
@@ -20,7 +33,6 @@ class Request
         }
         // take the string $path from [0] until first "?", from where starts the post request data
         return substr($path, 0, $position);
-
     }
 
     /**

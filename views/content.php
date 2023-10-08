@@ -23,7 +23,7 @@
             In the past, it was an uphill battle to build without a framework because some kind of system had to interpret and route HTTP requests, send HTTP responses, and manage dependencies. The lack of industry standards necessarily meant that, at the very least, those components of a framework were tightly coupled. If you didn't start with a framework, you'd end up building one yourself.
         </p>
         <p>
-            But today, thanks to all the autoloading and interoperability work done by PHP-FIG, building without a framework doesn't mean building it all by yourself. There are so many excellent, interoperable packages from a wide range of vendors. Pulling it all together is easier than you think!
+            But today, thanks to all the autoload and interoperability work done by PHP-FIG, building without a framework doesn't mean building it all by yourself. There are so many excellent, interoperable packages from a wide range of vendors. Pulling it all together is easier than you think!
         </p>
     </div>
     <div class="col" style="margin-top:70px">
@@ -53,12 +53,12 @@
     </div>
 
     <div class="container">
-        <h3>Autoloading and Third-Party Packages </h3>
+        <h3>Autoload and Third-Party Packages </h3>
         <p>
             When you first started with PHP, you may have used includes or requires statements throughout your app to bring in functionality or configuration from other PHP files. In general, we want to avoid that because it makes it much harder for a human to follow the code path and understand where dependencies lie. That makes debugging a real nightmare.
         </p>
         <p>
-            The solution is autoloading. Autoloading just means that when your application needs to use a class, PHP knows where to look for it and automatically loads it when it's called for. It's been available since PHP 5, but its usage really started picking up steam with the introduction of PSR-0 (the autoloading standard that has since been superseded by PSR-4).
+            The solution is autoload. Autoload just means that when your application needs to use a class, PHP knows where to look for it and automatically loads it when it's called for. It's been available since PHP 5, but its usage really started picking up steam with the introduction of PSR-0 (the autoload standard that has since been superseded by PSR-4).
         </p>
         <p>
             We could go through the rigamarole of writing our own autoloader, but since we're going to use Composer to manage third-party dependencies and it already includes a perfectly serviceable autoloader, let's just use that one.
