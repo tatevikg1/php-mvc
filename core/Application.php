@@ -6,28 +6,33 @@ namespace Tatevik\Framework;
 
 use Exception;
 use PDO;
+use Tatevik\Framework\Database\Connection as DatabaseConnection;
+use Throwable;
 
 class Application
 {
-    public $router;
-    public $request;
-    public $response;
-    public $PDO;
-    public static $app;
-    public $session;
-    public $controller;
+    public Router $router;
+    public Request $request;
+    public Response $response;
+    public PDO $PDO;
+    public static Application $app;
+    public Session $session;
 
     public function __construct()
     {
         // make the app accessible in whole application
         self::$app = $this;
 
-        $this->PDO = new PDO('sqlite:/home/t/Documents/github/php-mvc/.sqlite3');
-        $this->PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $this->request = Request::createFromGlobals();
-        $this->response = new Response();
-        $this->router = new Router($this->request, $this->response);
-        $this->session = new Session();
+        try {
+            $this->PDO = (new DatabaseConnection())->start();
+            $this->request = Request::createFromGlobals();
+            $this->response = new Response();
+            $this->router = new Router($this->request, $this->response);
+            $this->session = new Session();
+        } catch (Throwable $t) {
+            dd($t);
+        }
+
     }
 
     /**

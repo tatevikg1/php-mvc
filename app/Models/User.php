@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Tatevik\Framework\DB;
+use Tatevik\Framework\Database\DB;
 use Tatevik\Framework\Model;
 
 /**

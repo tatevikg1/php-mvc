@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tatevik\Framework;
+namespace Tatevik\Framework\Database;
 
 use PDOStatement;
+use Tatevik\Framework\Application;
 
 class DB
 {

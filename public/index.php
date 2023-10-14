@@ -1,12 +1,13 @@
 <?php
 
 require_once __DIR__ . '/../vendor/autoload.php';
-//require_once __DIR__ . '/../core/Helpers.php';
-set_include_path('/../config/routes/');
-
 require_once __DIR__ . '/../core/autoload/routes.php';
 
 use Tatevik\Framework\Application;
+use Tatevik\Framework\Helper;
+
+$dotenv = Dotenv\Dotenv::createImmutable(Helper::basePath());
+$dotenv->load();
 
 $app = new Application();
 

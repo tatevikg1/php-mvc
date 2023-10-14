@@ -6,7 +6,6 @@ namespace Tatevik\Framework;
 
 class Response
 {
-
     /**
      * Sets http response status code
      * @param int $code
@@ -19,9 +18,8 @@ class Response
     /**
      * @param string $url
     */
-    public function redirect(string $url)
+    public function redirect(string $url): void
     {
-        // header is a php function to redirect to url
         header('Location: '. $url);
     }
 }

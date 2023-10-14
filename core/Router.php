@@ -97,7 +97,7 @@ class Router
     /**
      * Includes the layout template for the page view.
     */
-    protected function layoutContent()
+    protected function layoutContent(): bool|string
     {
         // include but don't show yet(creates an output buffer)
         ob_start();

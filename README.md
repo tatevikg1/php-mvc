@@ -1,0 +1,1 @@
+run vendor/bin/phinx migrate to migrate db
