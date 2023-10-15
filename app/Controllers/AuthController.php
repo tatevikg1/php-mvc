@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use Tatevik\Framework\Application;
-use Tatevik\Framework\Controller;
-use Tatevik\Framework\Request;
-use Tatevik\Framework\Session;
 use App\Models\LoginUser;
 use App\Models\User;
+use Tatevik\Framework\Application;
+use Tatevik\Framework\Controller;
+use Tatevik\Framework\Request\Request;
+use Tatevik\Framework\Session;
 
 
 // it extends Controller because the render function is there

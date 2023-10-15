@@ -14,4 +14,15 @@ class Helper
 
         return $basePath;
     }
+
+    public static function baseStoragePath($path = ''): string
+    {
+        $basePath = self::basePath('storage');
+
+        if (!empty($path)) {
+            $basePath .=  '/' . $path;
+        }
+
+        return $basePath;
+    }
 }

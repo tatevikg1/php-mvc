@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tatevik\Framework\Exception;
+namespace Tatevik\Framework\Request\Exception;
 
 use Exception;
 

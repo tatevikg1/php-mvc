@@ -5,13 +5,21 @@ require_once __DIR__ . '/../core/autoload/routes.php';
 
 use Tatevik\Framework\Application;
 use Tatevik\Framework\Helper;
+use Tatevik\Framework\Logger\Facade\Logger;
 
 $dotenv = Dotenv\Dotenv::createImmutable(Helper::basePath());
 $dotenv->load();
+try {
+    $app = new Application();
 
-$app = new Application();
+    $app->run();
+} catch (Throwable $t) {
+    if ($_ENV['DEBUG'] === 'true') {
+        dd($t);
+    }
+    Logger::debug($t->getMessage());
+}
 
-$app->run();
 
 // MESSAGE TO MYSELF
 

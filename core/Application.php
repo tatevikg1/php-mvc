@@ -7,7 +7,8 @@ namespace Tatevik\Framework;
 use Exception;
 use PDO;
 use Tatevik\Framework\Database\Connection as DatabaseConnection;
-use Throwable;
+use Tatevik\Framework\Request\Request;
+use Tatevik\Framework\Response\Response;
 
 class Application
 {
@@ -17,22 +18,18 @@ class Application
     public PDO $PDO;
     public static Application $app;
     public Session $session;
+    public Controller $controller;
 
     public function __construct()
     {
         // make the app accessible in whole application
         self::$app = $this;
 
-        try {
-            $this->PDO = (new DatabaseConnection())->start();
-            $this->request = Request::createFromGlobals();
-            $this->response = new Response();
-            $this->router = new Router($this->request, $this->response);
-            $this->session = new Session();
-        } catch (Throwable $t) {
-            dd($t);
-        }
-
+        $this->PDO = (new DatabaseConnection())->start();
+        $this->request = Request::createFromGlobals();
+        $this->response = new Response();
+        $this->router = new Router($this->request, $this->response);
+        $this->session = new Session();
     }
 
     /**

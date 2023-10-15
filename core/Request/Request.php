@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tatevik\Framework;
+namespace Tatevik\Framework\Request;
 
 class Request
 {

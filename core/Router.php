@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Tatevik\Framework;
 
-use Tatevik\Framework\Exception\NotFoundException;
+use Tatevik\Framework\Request\Exception\NotFoundException;
+use Tatevik\Framework\Request\Request;
+use Tatevik\Framework\Response\Response;
 
 class Router
 {

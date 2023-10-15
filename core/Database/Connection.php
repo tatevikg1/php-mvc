@@ -9,6 +9,7 @@ use Tatevik\Framework\Database\Connector\ConnectorInterface;
 use Tatevik\Framework\Database\Connector\MysqlConnector;
 use Tatevik\Framework\Database\Connector\SqlLightConnector;
 use Tatevik\Framework\Database\Exception\InvalidArgumentException;
+use Tatevik\Framework\Logger\Facade\Logger;
 
 class Connection
 {
@@ -23,7 +24,15 @@ class Connection
      */
     public function start(): PDO
     {
-        $connector = $this->getConnector($this->config);
+        try {
+            $connector = $this->getConnector($this->config);
+        } catch (InvalidArgumentException $exception) {
+            Logger::error('Database connection exception', [
+                'message' => $exception->getMessage(),
+                'exception' => $exception,
+            ]);
+            throw $exception;
+        }
         return $connector->connect($this->config);
     }
 

@@ -7,6 +7,8 @@ namespace Tatevik\Framework\Database\Connector;
 use Exception;
 use PDO;
 use Tatevik\Framework\Database\Config;
+use Tatevik\Framework\Database\Exception\DatabaseConnectionException;
+use Tatevik\Framework\Logger\Facade\Logger;
 
 class MysqlConnector implements ConnectorInterface
 {
@@ -30,6 +32,9 @@ class MysqlConnector implements ConnectorInterface
         return "mysql:host={$config->getHost()};port={$config->getPort()};dbname={$config->getDatabase()}";
     }
 
+    /**
+     * @throws DatabaseConnectionException
+     */
     private function createConnection($dsn, Config $config, array $options): PDO
     {
         try {
@@ -37,7 +42,11 @@ class MysqlConnector implements ConnectorInterface
                 $dsn, $config->getLogin(), $config->getPassword(), $options
             );
         } catch (Exception $exception) {
-            dd($exception);
+            Logger::critical('Database connection error', [
+                'class_name' => __CLASS__,
+                'exception' => $exception,
+            ]);
+            throw new DatabaseConnectionException('Database connection error');
         }
     }
 }
