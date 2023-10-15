@@ -53,7 +53,7 @@ class Application
     */
     public static function Guest(): bool
     {
-        if ($_SESSION['user'] === NULL) {
+        if (!array_key_exists('user', $_SESSION) || $_SESSION['user'] === NULL) {
             return true;
         }
         return false;

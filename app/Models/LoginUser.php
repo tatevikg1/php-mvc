@@ -28,11 +28,11 @@ class LoginUser extends Model
         $user = $statement->fetchObject();
 
         if (!$user) {
-            $this->addError('email', self::DOESNTEXIST, ['field' => 'email']);
+            $this->addError('email', self::DOESNT_EXIST, ['field' => 'email']);
             return false;
         }
         if (!password_verify($this->password, $user->password)) {
-            $this->addError('password', self::PASSWORDVERIFY, ['field' => 'password']);
+            $this->addError('password', self::PASSWORD_VERIFY, ['field' => 'password']);
             return false;
         }
 

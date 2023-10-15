@@ -14,15 +14,15 @@ namespace Tatevik\Framework;
     public const MAX            = 'max';
     public const MATCH          = 'match';
     public const UNIQUE         = 'unique';
-    public const DOESNTEXIST    = 'doesntexist';
-    public const PASSWORDVERIFY = 'passwordverify';
+    public const DOESNT_EXIST    = 'doesnt_exist';
+    public const PASSWORD_VERIFY = 'password_verify';
 
 
     /**
      * loads the $data to model properties
      * @param mixed $data
     */
-    public function load($data)
+    public function load(array $data): void
     {
         foreach ($data as $key => $input) {
             // property_exists is a php function that will check the model properties($this)
@@ -94,7 +94,7 @@ namespace Tatevik\Framework;
      * @param mixed $param
      * @return void
     */
-    public function addError($attribute, $ruleName, $param = [])
+    public function addError(string $attribute, string $ruleName, ?array $param = []): void
     {
         $message = $this->errorMessages()[$ruleName] ?? '';
         foreach ($param as $key => $value) {
@@ -119,8 +119,8 @@ namespace Tatevik\Framework;
             self::MAX         => 'Maximum  length of this field must be {max} characters.',
             self::MATCH       => 'This field must be the same as {match}',
             self::UNIQUE      => 'Record with this {field} already exists',
-            self::DOESNTEXIST => 'Record does not exist',
-            self::PASSWORDVERIFY=> 'Wrong password',
+            self::DOESNT_EXIST => 'Record does not exist',
+            self::PASSWORD_VERIFY=> 'Wrong password',
         ];
     }
 
@@ -131,14 +131,14 @@ namespace Tatevik\Framework;
     */
     public function hasError(string $attribute): bool
     {
-        return (bool)$this->errors[$attribute];
+        return array_key_exists($attribute, $this->errors) && $this->errors[$attribute];
     }
 
     /**
      * @param string $attribute
      * @return string|bool
     */
-    public function getFirstError(string $attribute)
+    public function getFirstError(string $attribute): string|bool
     {
         return $this->errors[$attribute][0] ?? false;
     }
